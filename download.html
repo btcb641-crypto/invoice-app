@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل ملفات المشروع</title>
+    <style>
+        * { font-family: 'Segoe UI', Tahoma, sans-serif; box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .container { background: white; border-radius: 20px; padding: 40px; max-width: 600px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        h1 { text-align: center; margin-bottom: 10px; font-size: 24px; }
+        p.sub { text-align: center; color: #666; margin-bottom: 30px; }
+        .file-card { background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 12px; padding: 20px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .file-info h3 { font-size: 16px; margin-bottom: 5px; }
+        .file-info p { font-size: 12px; color: #666; }
+        .btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; color: white; transition: all 0.3s; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .btn-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .btn-green { background: linear-gradient(135deg, #10b981, #059669); }
+        .btn-purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .btn-red { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .btn-all { width: 100%; padding: 15px; font-size: 16px; margin-top: 10px; }
+        .step { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 10px; padding: 15px; margin-top: 20px; }
+        .step h3 { color: #0369a1; margin-bottom: 10px; }
+        .step ol { padding-right: 20px; font-size: 14px; line-height: 2; }
+        .badge { display: inline-block; background: #dbeafe; color: #1d4ed8; padding: 2px 8px; border-radius: 5px; font-size: 11px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 تحميل ملفات المشروع</h1>
+        <p class="sub">حمّل الملفات الثلاثة ثم ارفعها على GitHub</p>
+
+        <div class="file-card">
+            <div class="file-info">
+                <h3>📄 index.html</h3>
+                <p>الملف الرئيسي للتطبيق <span class="badge">مطلوب</span></p>
+            </div>
+            <button class="btn btn-blue" onclick="downloadFile('index')">⬇️ تحميل</button>
+        </div>
+
+        <div class="file-card">
+            <div class="file-info">
+                <h3>📋 manifest.json</h3>
+                <p>إعدادات PWA <span class="badge">مطلوب</span></p>
+            </div>
+            <button class="btn btn-green" onclick="downloadFile('manifest')">⬇️ تحميل</button>
+        </div>
+
+        <div class="file-card">
+            <div class="file-info">
+                <h3>⚙️ service-worker.js</h3>
+                <p>للعمل بدون إنترنت <span class="badge">مطلوب</span></p>
+            </div>
+            <button class="btn btn-purple" onclick="downloadFile('sw')">⬇️ تحميل</button>
+        </div>
+
+        <button class="btn btn-red btn-all" onclick="downloadAll()">📥 تحميل جميع الملفات دفعة واحدة</button>
+
+        <div class="step">
+            <h3>📝 الخطوات بعد التحميل:</h3>
+            <ol>
+                <li>اذهب إلى <a href="https://github.com" target="_blank">github.com</a> وأنشئ حساب</li>
+                <li>أنشئ مستودع جديد باسم <strong>invoice-app</strong></li>
+                <li>اضغط <strong>"uploading an existing file"</strong></li>
+                <li>اسحب الملفات الثلاثة وارفعها</li>
+                <li>اذهب إلى <strong>Settings → Pages → Source: main → Save</strong></li>
+                <li>انتظر دقيقة ثم انسخ الرابط</li>
+                <li>اذهب إلى <a href="https://www.pwabuilder.com" target="_blank">pwabuilder.com</a></li>
+                <li>الصق الرابط واضغط <strong>Start</strong></li>
+                <li>اضغط <strong>Package for stores → Android → Download</strong></li>
+                <li>🎉 <strong>ستحصل على ملف APK جاهز!</strong></li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+    // محتوى ملف manifest.json
+    const manifestContent = `{
+    "name": "نظام الفواتير - Invoice System",
+    "short_name": "الفواتير",
+    "description": "نظام إدارة الفواتير الاحترافي",
+    "version": "1.0.0",
+    "start_url": "./index.html",
+    "scope": ".",
+    "display": "standalone",
+    "background_color": "#1a1a2e",
+    "theme_color": "#1a1a2e",
+    "orientation": "any",
+    "lang": "ar",
+    "dir": "rtl",
+    "id": "invoice-app",
+    "categories": ["business", "finance", "productivity"],
+    "icons": [
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='128' fill='%231a1a2e'/><text x='256' y='340' font-size='280' text-anchor='middle' fill='%23fbbf24'>🧾</text></svg>",
+            "sizes": "512x512",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='128' fill='%231a1a2e'/><text x='256' y='340' font-size='280' text-anchor='middle' fill='%23fbbf24'>🧾</text></svg>",
+            "sizes": "192x192",
+            "type": "image/svg+xml",
+            "purpose": "maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720'><rect width='1280' height='720' fill='%231e3a5f'/><text x='640' y='400' font-size='60' text-anchor='middle' fill='white'>نظام الفواتير</text></svg>",
+            "sizes": "1280x720",
+            "type": "image/svg+xml",
+            "form_factor": "wide",
+            "label": "لوحة التحكم"
+        },
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 390 844'><rect width='390' height='844' fill='%231e3a5f'/><text x='195' y='450' font-size='40' text-anchor='middle' fill='white'>نظام الفواتير</text></svg>",
+            "sizes": "390x844",
+            "type": "image/svg+xml",
+            "form_factor": "narrow",
+            "label": "الشاشة الرئيسية"
+        }
+    ],
+    "prefer_related_applications": false
+}`;
+
+    // محتوى ملف service-worker.js
+    const swContent = `const CACHE_NAME = 'invoice-app-v2.0.0';
+const urlsToCache = [
+    './',
+    './index.html',
+    './manifest.json'
+];
+
+self.addEventListener('install', event => {
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then(cache => cache.addAll(urlsToCache))
+            .catch(err => console.log('Cache error:', err))
+    );
+    self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+    event.waitUntil(
+        caches.keys().then(cacheNames => {
+            return Promise.all(
+                cacheNames.map(cacheName => {
+                    if (cacheName !== CACHE_NAME) {
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        })
+    );
+    self.clients.claim();
+});
+
+self.addEventListener('fetch', event => {
+    event.respondWith(
+        fetch(event.request)
+            .then(response => {
+                if (response.status === 200) {
+                    const responseClone = response.clone();
+                    caches.open(CACHE_NAME).then(cache => {
+                        cache.put(event.request, responseClone);
+                    });
+                }
+                return response;
+            })
+            .catch(() => {
+                return caches.match(event.request).then(response => {
+                    if (response) return response;
+                    if (event.request.mode === 'navigate') {
+                        return caches.match('./index.html');
+                    }
+                });
+            })
+    );
+});`;
+
+    function downloadFile(type) {
+        let content, filename, mimeType;
+        
+        if (type === 'index') {
+            // فتح index.html في نافذة جديدة للحفظ
+            const link = document.createElement('a');
+            link.href = 'index.html';
+            link.download = 'index.html';
+            link.click();
+            return;
+        } else if (type === 'manifest') {
+            content = manifestContent;
+            filename = 'manifest.json';
+            mimeType = 'application/json';
+        } else if (type === 'sw') {
+            content = swContent;
+            filename = 'service-worker.js';
+            mimeType = 'text/javascript';
+        }
+        
+        const blob = new Blob([content], { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    function downloadAll() {
+        downloadFile('index');
+        setTimeout(() => downloadFile('manifest'), 500);
+        setTimeout(() => downloadFile('sw'), 1000);
+    }
+    </script>
+</body>
+</html>
