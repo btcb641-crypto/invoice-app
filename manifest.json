@@ -1,0 +1,48 @@
+{
+    "name": "نظام الفواتير - Invoice System",
+    "short_name": "الفواتير",
+    "description": "نظام إدارة الفواتير الاحترافي - Professional Invoice Management System",
+    "version": "1.0.0",
+    "start_url": "./index.html",
+    "scope": ".",
+    "display": "standalone",
+    "background_color": "#1a1a2e",
+    "theme_color": "#1a1a2e",
+    "orientation": "any",
+    "lang": "ar",
+    "dir": "rtl",
+    "id": "invoice-app",
+    "categories": ["business", "finance", "productivity"],
+    "icons": [
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='128' fill='%231a1a2e'/><text x='256' y='340' font-size='280' text-anchor='middle' fill='%23fbbf24'>🧾</text></svg>",
+            "sizes": "512x512",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='128' fill='%231a1a2e'/><text x='256' y='340' font-size='280' text-anchor='middle' fill='%23fbbf24'>🧾</text></svg>",
+            "sizes": "192x192",
+            "type": "image/svg+xml",
+            "purpose": "maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720'><rect width='1280' height='720' fill='%231e3a5f'/><text x='640' y='400' font-size='60' text-anchor='middle' fill='white'>نظام الفواتير</text></svg>",
+            "sizes": "1280x720",
+            "type": "image/svg+xml",
+            "form_factor": "wide",
+            "label": "لوحة التحكم"
+        },
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 390 844'><rect width='390' height='844' fill='%231e3a5f'/><text x='195' y='450' font-size='40' text-anchor='middle' fill='white'>نظام الفواتير</text></svg>",
+            "sizes": "390x844",
+            "type": "image/svg+xml",
+            "form_factor": "narrow",
+            "label": "الشاشة الرئيسية"
+        }
+    ],
+    "prefer_related_applications": false,
+    "related_applications": []
+}

@@ -9,11 +9,8 @@
     <meta name="theme-color" content="#1a1a2e">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="نظام الفواتير">
     
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
-    
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -23,7 +20,7 @@
         * { font-family: 'Tajawal', sans-serif; box-sizing: border-box; }
         body { background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); min-height: 100vh; margin: 0; padding: 0; }
         
-        .sidebar { background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; box-shadow: -5px 0 20px rgba(0,0,0,0.3); transition: transform 0.3s ease; }
+        .sidebar { background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; box-shadow: -5px 0 20px rgba(0,0,0,0.3); transition: right 0.3s ease; }
         .nav-btn { transition: all 0.3s ease; border-right: 3px solid transparent; background: transparent; }
         .nav-btn:hover, .nav-btn.active { background: rgba(255,255,255,0.1); border-right-color: #fbbf24; }
         .nav-btn.active { background: linear-gradient(90deg, rgba(251,191,36,0.2) 0%, transparent 100%); }
@@ -45,38 +42,13 @@
         .btn-teal { background: linear-gradient(135deg, #14b8a6, #0d9488); color: white; }
         .btn-sm { padding: 6px 12px; font-size: 12px; }
         
-        /* ===== تنسيق الفاتورة A4 ===== */
         .invoice-preview {
-            background: white;
-            width: 210mm;
-            min-height: 297mm;
-            max-width: 100%;
-            margin: 0 auto;
-            padding: 15mm 20mm;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            font-family: "Times New Roman", serif;
-            font-size: 13px;
-            color: #000;
-            line-height: 1.4;
+            background: white; width: 210mm; min-height: 297mm; max-width: 100%;
+            margin: 0 auto; padding: 15mm 20mm; box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            font-family: "Times New Roman", serif; font-size: 13px; color: #000; line-height: 1.4;
         }
-        
-        .invoice-header {
-            text-align: center;
-            padding: 10px 15px;
-            margin-bottom: 12px;
-            border: 2px solid #000;
-            border-radius: 0;
-        }
-        
-        .seller-name {
-            font-family: 'Amiri', serif;
-            font-size: 26px;
-            font-weight: 700;
-            color: #000;
-            direction: rtl;
-            margin-bottom: 2px;
-        }
-        
+        .invoice-header { text-align: center; padding: 10px 15px; margin-bottom: 12px; border: 2px solid #000; }
+        .seller-name { font-family: 'Amiri', serif; font-size: 26px; font-weight: 700; color: #000; direction: rtl; margin-bottom: 2px; }
         .invoice-table { width: 100%; border-collapse: collapse; }
         .invoice-table th, .invoice-table td { border: 1px solid #000; padding: 6px 8px; }
         .invoice-table th { background: #e8e8e8; font-weight: bold; text-align: center; font-size: 12px; }
@@ -94,25 +66,13 @@
         .overlay.active { display: block; }
         .main-content { margin-right: 256px; padding: 24px; min-height: 100vh; }
         
-        /* PDF Preview Modal */
         .pdf-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #1a1a2e; z-index: 3000; flex-direction: column; }
         .pdf-modal.active { display: flex; }
         .pdf-toolbar { background: linear-gradient(135deg, #2d5a87 0%, #1e3a5f 100%); padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .pdf-toolbar h3 { color: white; font-size: 16px; margin: 0; }
         .pdf-toolbar-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
         .pdf-content { flex: 1; overflow: auto; padding: 20px; display: flex; justify-content: center; align-items: flex-start; background: #4a5568; }
-        .pdf-frame {
-            background: white;
-            width: 210mm;
-            min-height: 297mm;
-            max-width: 100%;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            padding: 15mm 20mm;
-            font-family: "Times New Roman", serif;
-            font-size: 13px;
-            color: #000;
-            line-height: 1.4;
-        }
+        .pdf-frame { background: white; width: 210mm; min-height: 297mm; max-width: 100%; box-shadow: 0 10px 40px rgba(0,0,0,0.5); padding: 15mm 20mm; font-family: "Times New Roman", serif; font-size: 13px; color: #000; line-height: 1.4; }
         
         .loading-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 9999; }
         .loading-box { background: white; padding: 30px 50px; border-radius: 15px; text-align: center; }
@@ -125,7 +85,6 @@
             .mobile-menu-btn { display: flex; }
             .main-content { margin-right: 0; padding: 70px 15px 15px; }
         }
-        
         @media (max-width: 640px) {
             .main-content { padding: 65px 10px 10px; }
             .card { border-radius: 12px; padding: 15px !important; }
@@ -135,26 +94,22 @@
             .btn { padding: 8px 12px; font-size: 12px; gap: 4px; }
             .btn-sm { padding: 5px 8px; font-size: 11px; }
             .input-group input, .input-group select { padding: 10px 12px; font-size: 14px; }
-            .input-group label { font-size: 10px; }
             table { font-size: 12px; }
             table th, table td { padding: 6px 4px !important; }
             .invoice-preview { padding: 10px; font-size: 11px; min-height: auto; width: 100%; }
             .invoice-preview .seller-name { font-size: 20px; }
             .invoice-table th, .invoice-table td { padding: 4px 2px; font-size: 10px; }
-            .flex.gap-2.mt-3 { flex-wrap: wrap; gap: 5px !important; }
             .pdf-toolbar { padding: 10px; }
             .pdf-toolbar h3 { font-size: 14px; width: 100%; text-align: center; }
             .pdf-toolbar-buttons { width: 100%; justify-content: center; }
             .pdf-content { padding: 10px; }
             .pdf-frame { width: 100%; padding: 10px; min-height: auto; }
         }
-        
         @media (max-width: 380px) {
             .mobile-menu-btn { width: 45px; height: 45px; font-size: 20px; top: 10px; right: 10px; }
             .main-content { padding: 60px 8px 8px; }
             .btn { padding: 6px 10px; font-size: 11px; }
         }
-        
         @media print {
             body * { visibility: hidden; }
             #printArea, #printArea * { visibility: visible; }
@@ -243,10 +198,7 @@
             
             <!-- Dashboard -->
             <div id="page-dashboard" class="page-content active">
-                <div class="mb-6">
-                    <h2 class="text-3xl font-bold text-white mb-2">مرحباً بك 👋</h2>
-                    <p class="text-blue-200">إليك نظرة عامة على نشاطك</p>
-                </div>
+                <div class="mb-6"><h2 class="text-3xl font-bold text-white mb-2">مرحباً بك 👋</h2><p class="text-blue-200">إليك نظرة عامة على نشاطك</p></div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                     <div class="stats-card"><div class="flex justify-between items-center"><div><p class="text-white/70 text-sm">إجمالي العملاء</p><p class="text-3xl font-bold" id="stats-clients">0</p></div><span class="text-4xl">👥</span></div></div>
                     <div class="stats-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"><div class="flex justify-between items-center"><div><p class="text-white/70 text-sm">إجمالي المنتجات</p><p class="text-3xl font-bold" id="stats-products">0</p></div><span class="text-4xl">📦</span></div></div>
@@ -320,7 +272,6 @@
                 </div>
                 
                 <div class="invoice-preview" id="invoice">
-                    <!-- Header -->
                     <div class="invoice-header">
                         <div style="display: flex; justify-content: space-between; font-size: 10px; color: #333; margin-bottom: 5px;">
                             <div><strong>N° Carte :</strong> 22260013954</div>
@@ -332,20 +283,12 @@
                         <div style="font-size: 11px; color: #333; font-style: italic; margin-bottom: 3px;">Artisan Fabricant de Literie</div>
                         <div style="font-size: 11px; color: #333; direction: rtl; padding-top: 5px; border-top: 1px solid #999;">بلدية شلالة العذاورة – ولاية المدية</div>
                     </div>
-                    
-                    <!-- Date -->
                     <div style="text-align: right; margin-bottom: 10px; padding: 5px 10px; border: 1px solid #000; font-size: 12px;">
                         <strong>FAIT LE :</strong> <span id="displayDate">01/01/2026</span>
                     </div>
-                    
-                    <!-- Invoice Number -->
                     <div style="text-align: center; margin: 10px 0; padding: 8px; border: 2px solid #000;">
-                        <h2 style="margin: 0; font-size: 20px; font-weight: bold; color: #000;">
-                            FACTURE N° : <span id="displayInvoiceNumber">01/2026</span>
-                        </h2>
+                        <h2 style="margin: 0; font-size: 20px; font-weight: bold; color: #000;">FACTURE N° : <span id="displayInvoiceNumber">01/2026</span></h2>
                     </div>
-                    
-                    <!-- Client Info -->
                     <div style="display: flex; justify-content: center; margin: 10px 0;">
                         <div style="border: 1px solid #000; padding: 8px 15px; font-size: 11px; line-height: 1.6;">
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3px 25px; text-align: left;">
@@ -358,50 +301,20 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Products Table -->
                     <table class="invoice-table" dir="ltr" style="direction: ltr; text-align: left; margin-top: 10px;">
-                        <thead>
-                            <tr>
-                                <th style="width: 5%;">N°</th>
-                                <th style="width: 40%;">DESCRIPTION</th>
-                                <th style="width: 10%;">QTÉ</th>
-                                <th style="width: 10%;">UNITÉ</th>
-                                <th style="width: 15%;">P.U</th>
-                                <th style="width: 20%;">MONTANT</th>
-                            </tr>
-                        </thead>
-                        <tbody id="previewItems">
-                            <tr><td colspan="6" style="text-align: center; color: #999; padding: 20px;">Aucun produit</td></tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="5" style="text-align: right; font-weight: bold; background: #e8e8e8; padding: 8px;">Total HT</td>
-                                <td style="text-align: right; background: #e8e8e8; padding: 8px;"><strong id="previewTotal">0,00 DA</strong></td>
-                            </tr>
-                        </tfoot>
+                        <thead><tr><th style="width: 5%;">N°</th><th style="width: 40%;">DESCRIPTION</th><th style="width: 10%;">QTÉ</th><th style="width: 10%;">UNITÉ</th><th style="width: 15%;">P.U</th><th style="width: 20%;">MONTANT</th></tr></thead>
+                        <tbody id="previewItems"><tr><td colspan="6" style="text-align: center; color: #999; padding: 20px;">Aucun produit</td></tr></tbody>
+                        <tfoot><tr><td colspan="5" style="text-align: right; font-weight: bold; background: #e8e8e8; padding: 8px;">Total HT</td><td style="text-align: right; background: #e8e8e8; padding: 8px;"><strong id="previewTotal">0,00 DA</strong></td></tr></tfoot>
                     </table>
-                    
-                    <!-- Amount in Words -->
                     <div dir="ltr" style="direction: ltr; text-align: left; border: 2px solid #000; padding: 10px; margin-top: 15px;">
                         Arrêtée la présente facture à la somme de :<br>
                         <strong id="amountInWords">Zéro dinar algérien</strong>
                     </div>
-                    
-                    <!-- Footer -->
                     <div dir="ltr" style="direction: ltr; text-align: left; margin-top: 15px;">
-                        <div style="border: 1px solid #000; padding: 6px 10px; font-size: 11px;">
-                            Ne relève pas de la TVA 19% + taxe de timbre
-                        </div>
-                        <div style="margin-top: 10px; font-size: 13px;">
-                            <strong>MODE DE PAIEMENT :</strong> <span id="displayPaymentMethod">À TERME</span>
-                        </div>
+                        <div style="border: 1px solid #000; padding: 6px 10px; font-size: 11px;">Ne relève pas de la TVA 19% + taxe de timbre</div>
+                        <div style="margin-top: 10px; font-size: 13px;"><strong>MODE DE PAIEMENT :</strong> <span id="displayPaymentMethod">À TERME</span></div>
                         <br><br><br>
-                        <div style="text-align: right;">
-                            <div style="border-top: 1px solid #000; display: inline-block; padding-top: 5px; min-width: 180px; text-align: center;">
-                                <strong>Le fournisseur</strong>
-                            </div>
-                        </div>
+                        <div style="text-align: right;"><div style="border-top: 1px solid #000; display: inline-block; padding-top: 5px; min-width: 180px; text-align: center;"><strong>Le fournisseur</strong></div></div>
                     </div>
                 </div>
             </div>
@@ -592,7 +505,7 @@
         function updateStats() { document.getElementById('stats-clients').textContent = appData.clients.length; document.getElementById('stats-products').textContent = appData.products.length; document.getElementById('stats-invoices').textContent = appData.savedInvoices.length; document.getElementById('stats-total').textContent = formatNumber(appData.invoiceItems.reduce((s,i) => s+i.total, 0)) + ' DA'; }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-        // ==================== HTML الفاتورة للطباعة (A4 أبيض وأسود) ====================
+        // ==================== HTML نظيف للفاتورة A4 ====================
         function getInvoiceHTML(invoice) {
             let itemsHtml = '', total = 0;
             const items = invoice ? invoice.items : appData.invoiceItems;
@@ -603,41 +516,47 @@
             
             items.forEach((item, i) => {
                 total += item.total;
-                itemsHtml += '<tr><td style="text-align:center;border:1px solid #000;padding:6px;">'+( i+1)+'</td><td style="border:1px solid #000;padding:6px;">'+item.name+'</td><td style="text-align:center;border:1px solid #000;padding:6px;">'+item.qty+'</td><td style="text-align:center;border:1px solid #000;padding:6px;">'+item.unit+'</td><td style="text-align:right;border:1px solid #000;padding:6px;">'+formatNumber(item.price)+'</td><td style="text-align:right;border:1px solid #000;padding:6px;">'+formatNumber(item.total)+'</td></tr>';
+                itemsHtml += '<tr><td style="text-align:center;border:1px solid #000;padding:6px;">'+(i+1)+'</td><td style="border:1px solid #000;padding:6px;">'+item.name+'</td><td style="text-align:center;border:1px solid #000;padding:6px;">'+item.qty+'</td><td style="text-align:center;border:1px solid #000;padding:6px;">'+item.unit+'</td><td style="text-align:right;border:1px solid #000;padding:6px;">'+formatNumber(item.price)+'</td><td style="text-align:right;border:1px solid #000;padding:6px;">'+formatNumber(item.total)+'</td></tr>';
             });
             
             const dateF = invoiceDate ? new Date(invoiceDate).toLocaleDateString('fr-FR') : '';
             
-            return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Facture ${invoiceNum}</title>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-@page { size: A4; margin: 15mm 20mm; }
-body { font-family: "Times New Roman", serif; font-size: 13px; color: #000; width: 210mm; min-height: 297mm; padding: 15mm 20mm; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-.header { text-align: center; padding: 10px 15px; margin-bottom: 12px; border: 2px solid #000; }
-.seller-name { font-family: 'Amiri', serif; font-size: 26px; font-weight: 700; color: #000; }
-table { width: 100%; border-collapse: collapse; }
-th, td { border: 1px solid #000; padding: 6px 8px; }
-th { background: #e8e8e8 !important; font-weight: bold; text-align: center; font-size: 12px; }
-.total-row td { background: #e8e8e8 !important; }
-</style></head><body>
-<div class="header">
-<div style="display:flex;justify-content:space-between;font-size:10px;color:#333;margin-bottom:5px;"><div><strong>N° Carte :</strong> 22260013954</div><div><strong>MF N° :</strong> 185261800357101</div></div>
-<div class="seller-name">ولدبوزيدي عمر</div>
-<div style="font-size:12px;color:#333;">صناعة الأفرشة</div>
-<div style="font-size:15px;font-weight:bold;color:#000;">حرفي صانع أفرشة الأسرة</div>
-<div style="font-size:11px;color:#333;font-style:italic;">Artisan Fabricant de Literie</div>
-<div style="font-size:11px;color:#333;padding-top:5px;border-top:1px solid #999;">بلدية شلالة العذاورة – ولاية المدية</div>
-</div>
-<div style="text-align:right;margin-bottom:10px;padding:5px 10px;border:1px solid #000;font-size:12px;"><strong>FAIT LE :</strong> ${dateF}</div>
-<div style="text-align:center;margin:10px 0;padding:8px;border:2px solid #000;"><h2 style="margin:0;font-size:20px;font-weight:bold;color:#000;">FACTURE N° : ${invoiceNum}</h2></div>
-<div style="display:flex;justify-content:center;margin:10px 0;"><div style="border:1px solid #000;padding:8px 15px;font-size:11px;line-height:1.6;"><div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 25px;text-align:left;"><div><strong>Client :</strong> ${client?.name||'-'}</div><div><strong>RC N° :</strong> ${client?.rc||'-'}</div><div><strong>Activité :</strong> ${client?.job||'-'}</div><div><strong>IF N° :</strong> ${client?.if||'-'}</div><div><strong>Adresse :</strong> ${client?.address||'-'}</div><div><strong>ART N° :</strong> ${client?.art||'-'}</div></div></div></div>
-<table style="direction:ltr;margin-top:10px;"><thead><tr><th style="width:5%;">N°</th><th style="width:40%;">DESCRIPTION</th><th style="width:10%;">QTÉ</th><th style="width:10%;">UNITÉ</th><th style="width:15%;">P.U</th><th style="width:20%;">MONTANT</th></tr></thead>
-<tbody>${itemsHtml}</tbody>
-<tfoot><tr class="total-row"><td colspan="5" style="text-align:right;font-weight:bold;background:#e8e8e8;padding:8px;">Total HT</td><td style="text-align:right;background:#e8e8e8;padding:8px;"><strong>${formatNumber(total)} DA</strong></td></tr></tfoot></table>
-<div style="border:2px solid #000;padding:10px;margin-top:15px;">Arrêtée la présente facture à la somme de :<br><strong>${numberToFrench(total)} (${formatNumber(total)} DA)</strong></div>
-<div style="margin-top:15px;"><div style="border:1px solid #000;padding:6px 10px;font-size:11px;">Ne relève pas de la TVA 19% + taxe de timbre</div><div style="margin-top:10px;font-size:13px;"><strong>MODE DE PAIEMENT :</strong> ${paymentMethod}</div><br><br><br><div style="text-align:right;"><div style="border-top:1px solid #000;display:inline-block;padding-top:5px;min-width:180px;text-align:center;"><strong>Le fournisseur</strong></div></div></div>
-</body></html>`;
+            return '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Facture '+invoiceNum+'</title>' +
+'<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">' +
+'<style>' +
+'* { margin: 0; padding: 0; box-sizing: border-box; }' +
+'@page { size: A4; margin: 15mm 20mm; }' +
+'body { font-family: "Times New Roman", serif; font-size: 13px; color: #000; width: 210mm; min-height: 297mm; padding: 15mm 20mm; -webkit-print-color-adjust: exact; print-color-adjust: exact; }' +
+'.header { text-align: center; padding: 10px 15px; margin-bottom: 12px; border: 2px solid #000; }' +
+'.seller-name { font-family: "Amiri", serif; font-size: 26px; font-weight: 700; color: #000; }' +
+'table { width: 100%; border-collapse: collapse; }' +
+'th, td { border: 1px solid #000; padding: 6px 8px; }' +
+'th { background: #e8e8e8 !important; font-weight: bold; text-align: center; font-size: 12px; }' +
+'.total-row td { background: #e8e8e8 !important; }' +
+'</style></head><body>' +
+'<div class="header">' +
+'<div style="display:flex;justify-content:space-between;font-size:10px;color:#333;margin-bottom:5px;"><div><strong>N° Carte :</strong> 22260013954</div><div><strong>MF N° :</strong> 185261800357101</div></div>' +
+'<div class="seller-name">ولدبوزيدي عمر</div>' +
+'<div style="font-size:12px;color:#333;">صناعة الأفرشة</div>' +
+'<div style="font-size:15px;font-weight:bold;color:#000;">حرفي صانع أفرشة الأسرة</div>' +
+'<div style="font-size:11px;color:#333;font-style:italic;">Artisan Fabricant de Literie</div>' +
+'<div style="font-size:11px;color:#333;padding-top:5px;border-top:1px solid #999;">بلدية شلالة العذاورة – ولاية المدية</div>' +
+'</div>' +
+'<div style="text-align:right;margin-bottom:10px;padding:5px 10px;border:1px solid #000;font-size:12px;"><strong>FAIT LE :</strong> '+dateF+'</div>' +
+'<div style="text-align:center;margin:10px 0;padding:8px;border:2px solid #000;"><h2 style="margin:0;font-size:20px;font-weight:bold;color:#000;">FACTURE N° : '+invoiceNum+'</h2></div>' +
+'<div style="display:flex;justify-content:center;margin:10px 0;"><div style="border:1px solid #000;padding:8px 15px;font-size:11px;line-height:1.6;"><div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 25px;text-align:left;">' +
+'<div><strong>Client :</strong> '+(client?.name||'-')+'</div><div><strong>RC N° :</strong> '+(client?.rc||'-')+'</div>' +
+'<div><strong>Activité :</strong> '+(client?.job||'-')+'</div><div><strong>IF N° :</strong> '+(client?.if||'-')+'</div>' +
+'<div><strong>Adresse :</strong> '+(client?.address||'-')+'</div><div><strong>ART N° :</strong> '+(client?.art||'-')+'</div>' +
+'</div></div></div>' +
+'<table style="direction:ltr;margin-top:10px;"><thead><tr><th style="width:5%;">N°</th><th style="width:40%;">DESCRIPTION</th><th style="width:10%;">QTÉ</th><th style="width:10%;">UNITÉ</th><th style="width:15%;">P.U</th><th style="width:20%;">MONTANT</th></tr></thead>' +
+'<tbody>'+itemsHtml+'</tbody>' +
+'<tfoot><tr class="total-row"><td colspan="5" style="text-align:right;font-weight:bold;background:#e8e8e8;padding:8px;">Total HT</td><td style="text-align:right;background:#e8e8e8;padding:8px;"><strong>'+formatNumber(total)+' DA</strong></td></tr></tfoot></table>' +
+'<div style="border:2px solid #000;padding:10px;margin-top:15px;">Arrêtée la présente facture à la somme de :<br><strong>'+numberToFrench(total)+' ('+formatNumber(total)+' DA)</strong></div>' +
+'<div style="margin-top:15px;"><div style="border:1px solid #000;padding:6px 10px;font-size:11px;">Ne relève pas de la TVA 19% + taxe de timbre</div>' +
+'<div style="margin-top:10px;font-size:13px;"><strong>MODE DE PAIEMENT :</strong> '+paymentMethod+'</div>' +
+'<br><br><br><div style="text-align:right;"><div style="border-top:1px solid #000;display:inline-block;padding-top:5px;min-width:180px;text-align:center;"><strong>Le fournisseur</strong></div></div></div>' +
+'</body></html>';
         }
 
         // ==================== الطباعة ====================
@@ -663,7 +582,7 @@ th { background: #e8e8e8 !important; font-weight: bold; text-align: center; font
             w.onload = function() { w.focus(); w.print(); };
         }
 
-        // ==================== PDF ====================
+        // ==================== معاينة PDF ====================
         function openPDFPreview() {
             if (!appData.invoiceItems.length) { alert('❌ لا توجد منتجات!'); return; }
             updatePreview();
@@ -687,13 +606,25 @@ th { background: #e8e8e8 !important; font-weight: bold; text-align: center; font
         function showLoading(msg) { const o = document.createElement('div'); o.id = 'loadingOverlay'; o.className = 'loading-overlay'; o.innerHTML = '<div class="loading-box"><div class="loading-icon">⏳</div><div>'+msg+'</div></div>'; document.body.appendChild(o); }
         function hideLoading() { const o = document.getElementById('loadingOverlay'); if (o) o.remove(); }
 
+        // ==================== تحميل PDF بجودة عالية ====================
         async function downloadPDF() {
-            if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') { alert('⏳ انتظر تحميل المكتبات ثم حاول مرة أخرى'); return; }
+            if (typeof html2canvas === 'undefined' || typeof window.jspdf === 'undefined') {
+                alert('⏳ انتظر تحميل المكتبات ثم حاول مرة أخرى');
+                return;
+            }
             showLoading('جاري إنشاء ملف PDF بتنسيق A4...');
             try {
                 await new Promise(r => setTimeout(r, 300));
                 const element = document.getElementById('pdfFrame');
-                const canvas = await html2canvas(element, { scale: 2, useCORS: true, allowTaint: true, backgroundColor: '#ffffff', logging: false, removeContainer: true, imageTimeout: 0 });
+                const canvas = await html2canvas(element, {
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#ffffff',
+                    logging: false,
+                    removeContainer: true,
+                    imageTimeout: 0
+                });
                 const { jsPDF } = window.jspdf;
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 const imgData = canvas.toDataURL('image/jpeg', 0.95);
@@ -707,13 +638,22 @@ th { background: #e8e8e8 !important; font-weight: bold; text-align: center; font
                     let heightLeft = imgHeight, position = 0;
                     pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
                     heightLeft -= pdfHeight;
-                    while (heightLeft > 0) { position -= pdfHeight; pdf.addPage(); pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight); heightLeft -= pdfHeight; }
+                    while (heightLeft > 0) {
+                        position -= pdfHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pdfHeight;
+                    }
                 }
                 const invoiceNum = document.getElementById('invoiceNumber').value.replace('/', '-');
                 pdf.save('Facture_' + invoiceNum + '.pdf');
                 hideLoading();
-                alert('✅ تم تحميل PDF بتنسيق A4 بنجاح!\n📄 Facture_' + invoiceNum + '.pdf');
-            } catch (e) { hideLoading(); console.error(e); alert('❌ خطأ: ' + e.message); }
+                alert('✅ تم تحميل PDF بنجاح!\n📄 Facture_' + invoiceNum + '.pdf');
+            } catch (e) {
+                hideLoading();
+                console.error(e);
+                alert('❌ خطأ: ' + e.message);
+            }
         }
 
         async function exportSavedInvoicePDF(id) {
@@ -724,16 +664,26 @@ th { background: #e8e8e8 !important; font-weight: bold; text-align: center; font
             const tempNum = document.getElementById('invoiceNumber').value;
             const tempDate = document.getElementById('invoiceDate').value;
             const tempPay = document.getElementById('paymentMethod').value;
+            
             appData.invoiceItems = [...inv.items];
             document.getElementById('invoiceNumber').value = inv.invoiceNumber;
             document.getElementById('invoiceDate').value = inv.date;
             document.getElementById('paymentMethod').value = inv.paymentMethod;
             if (appData.clients.find(c => c.id === inv.client.id)) document.getElementById('clientSelect').value = inv.client.id;
+            
             updatePreview();
             document.getElementById('pdfFrame').innerHTML = document.getElementById('invoice').innerHTML;
             document.getElementById('pdfModal').classList.add('active');
             document.body.style.overflow = 'hidden';
-            setTimeout(() => { appData.invoiceItems = tempItems; document.getElementById('clientSelect').value = tempClient; document.getElementById('invoiceNumber').value = tempNum; document.getElementById('invoiceDate').value = tempDate; document.getElementById('paymentMethod').value = tempPay; renderInvoiceItems(); }, 500);
+            
+            setTimeout(() => {
+                appData.invoiceItems = tempItems;
+                document.getElementById('clientSelect').value = tempClient;
+                document.getElementById('invoiceNumber').value = tempNum;
+                document.getElementById('invoiceDate').value = tempDate;
+                document.getElementById('paymentMethod').value = tempPay;
+                renderInvoiceItems();
+            }, 500);
         }
 
         // ==================== التصدير والاستيراد ====================

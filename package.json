@@ -1,0 +1,33 @@
+{
+    "name": "invoice-management-system",
+    "version": "1.0.0",
+    "description": "نظام إدارة الفواتير الاحترافي - Professional Invoice Management System",
+    "main": "index.html",
+    "scripts": {
+        "start": "npx serve .",
+        "dev": "npx live-server --port=3000",
+        "build": "echo 'No build required - Static HTML/CSS/JS'",
+        "test": "echo 'No tests configured'"
+    },
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "keywords": [
+        "invoice",
+        "billing",
+        "pwa",
+        "arabic",
+        "فواتير",
+        "نظام فواتير"
+    ],
+    "author": "Invoice System Developer",
+    "license": "MIT",
+    "devDependencies": {
+        "live-server": "^1.2.2",
+        "serve": "^14.2.0"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    }
+}
